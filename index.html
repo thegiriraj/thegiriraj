@@ -3,8 +3,16 @@
     <title>Test Site</title>
   </head>
   <body>
+    <h1 style="display:flex;justify-content:center;align-items:center">Redirecting...</h1>
     <script>
-      window.location.href = "http://stackoverflow.com";
+      let queryString = window.location.search;
+      if(queryString && queryString.length() > 0){
+          const params = new Proxy(new URLSearchParams(window.location.search), {
+            get: (searchParams, prop) => searchParams.get(prop),
+          });
+          window.location.href = params.state+queryString;
+      }
+
     </script>
   </body>
 </html>
